@@ -1,0 +1,123 @@
+md-card{
+	border-radius: 4px !important;
+}
+
+md-input-container {
+	.md-errors-spacer {
+		min-height: 0 !important;
+    }
+}
+
+.md-button{
+	text-transform: initial;
+	padding: 0 10px;
+	border-radius: 4px;
+}
+
+md-icon {
+    color: inherit !important;
+}
+
+md-toolbar.md-short, div.md-short{
+	min-height: 40px !important;
+
+	.md-toolbar-tools{
+		height: 40px !important;	
+		max-height: 40px !important;
+		font-size: 18px;
+    	padding: 0 13px;
+	}
+
+	.md-subtitle {
+    	line-height: 40px;
+    	margin: 0 15px 0 0;
+	}
+
+	md-tabs{ 
+		min-height: 40px;
+		md-tabs-canvas{
+			height: 40px !important;
+			md-pagination-wrapper{ height: 40px !important; }
+			.md-tab{ padding: 8px 24px; }
+		}
+	}
+
+	md-tabs-content-wrapper{
+		top: 40px;
+	}
+
+	.md-button{
+		line-height: 30px;
+    	min-height: 30px;
+    	height: 30px;
+
+    	&.md-icon-button {
+			padding: 0px;
+			width: 30px;
+		}
+	}
+}
+
+
+.md-tabs-fullheight{
+	md-tab-content{
+		& > div{
+			height: 100%;
+			& > *{
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				overflow-x: hidden;
+			}
+		}
+	}
+}
+
+
+.md-table-short thead.md-head > tr.md-row {
+  height: 30px !important;
+}
+.md-table-short tbody.md-body > tr.md-row,
+.md-table-short tfoot.md-foot > tr.md-row {
+  height: 30px !important;
+}
+.md-table-short .md-cell md-icon {
+  line-height: 26px;
+}
+.md-table-short .md-cell-avatar {
+  width: 25px;
+}
+.md-table-short .md-cell-avatar img {
+  width: 25px;
+  max-width: 25px;
+  border-radius: 50px;
+}
+
+.table-col-compress td.md-cell:first-child,
+.table-col-compress th.md-column:first-child {
+  padding: 0 15px !important;
+}
+.table-col-compress td.md-cell:nth-child(n+2):nth-last-child(n+2),
+.table-col-compress th.md-column:nth-child(n+2):nth-last-child(n+2) {
+  padding: 0 15px 0 0 !important;
+}
+.table-col-compress td.md-cell:last-child,
+.table-col-compress th.md-column:last-child {
+  padding: 0 15px 0 0 !important;
+}
+
+.md-cell-compress {
+  width: 1px;
+  white-space: nowrap;
+}
+
+.md-cell-compress > *:only-child {
+  display: table;
+  margin: 0 auto !important;
+}
+
+.md-cell-compress .md-icon-button {
+  margin: 0;
+}

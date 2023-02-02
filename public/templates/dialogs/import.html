@@ -1,0 +1,232 @@
+<md-dialog id="Dialog_Import" md-theme="{{Config.Theme}}" class="vh95" aria-label="Import Dialog" style="min-width: calc(100% - 25px);">
+	
+	<div layout class="padding-left"  >
+		<div layout flex layout-align="center center" layout-wrap>
+			<md-icon md-font-icon="{{ Config.TituloIcono }}" class="text-black" hide-xs></md-icon>
+			<div class="md-title lh30">{{ Config.Titulo }}</div>
+			<span class="w10"></span>
+			<div class="bg-lightgrey-5 padding-0-10 border border-rounded h25 lh24">Paso {{ Config.Paso }}: {{ Config.Pasos[Config.Paso] }}</div>
+			<span flex></span>
+		</div>
+
+		<md-button class="md-icon-button s30 no-margin no-padding" ng-click="Cancel()" ng-show="Config.Paso <= 2">
+			<md-icon md-svg-icon="md-close"></md-icon>
+		</md-button>
+	</div>
+
+	<md-dialog-content flex layout="column">
+
+		<!-- Paso 1 -->
+		<div flex layout=column layout-gt-xs=row ng-show="Config.Paso == 1">
+
+			<div flex layout=column md-ink-ripple class="PlantillaSec border-top border-right relative" 
+				ng-if="PlantillaUrl"
+				ng-click="DownloadPlantilla()">
+
+				<div flex layout=column layout-align="center center">
+					
+					<div class="BigButton" layout="column" layout-align="start center">
+						<md-icon md-font-icon="fa-download"></md-icon>
+						<label>Descargar Plantilla</label>
+					</div>
+
+				</div>
+
+				<div class="mh40" layout=column>
+					<div class="text-center padding-5 mxw380" style="margin: 5px auto;">{{ Config.PlantillaMsg }}</div>
+				</div>
+
+			</div>
+
+			<div flex layout=column md-ink-ripple class="PlantillaSec border-top border-right relative" 
+				ng-click="DownloadPlantilla()">
+
+				<div flex layout=column layout-align="center center" type="file" ngf-select="UploadTemplate($files, $invalidFiles)" ngf-accept="'.csv,.xls,.xlsx'">
+					
+					<div class="BigButton" layout="column" layout-align="start center">
+						<md-icon md-font-icon="fa-upload"></md-icon>
+						<label>Subir Plantilla</label>
+					</div>
+
+				</div>
+
+				<div class="mh40" layout=column>
+					<div class="text-center padding-5 mxw380" style="margin: 5px auto;">{{ Config.PlantillaMsg2 }}</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Paso 2 -->
+		<div flex layout=column ng-show="Config.Paso == 2">
+			
+			<md-table-container flex class="darkScroll" md-virtual-repeat-container>
+				<table md-table class="md-table-short border-bottom">
+					<thead md-head md-order="">
+						<tr md-row>
+							<th md-column>Accion</th>
+							<th md-column ng-repeat="C in Config.Campos">{{ C[0] }}</th>
+						</tr>
+					</thead>
+					<tbody md-body>
+						<tr md-row md-virtual-repeat="Row in ImportData | filter:{ '_import_action': filterAccion }" class="md-row-hover" 
+							ng-class="Config.ImportAcciones[Row._import_action].clase">
+							<td md-cell class="">
+								<div layout=column class="w100 ">
+									<div layout class="lh25">
+										<md-icon md-font-icon="{{ Config.ImportAcciones[Row._import_action].icono }} fa-fw"></md-icon>
+										<div flex>{{ Row._import_action }}</div>
+									</div>
+									<div ng-repeat="E in Row._import_errors">{{ E }}</div>
+								</div>
+							</td>
+							<td md-cell ng-repeat="C in Config.Campos" >
+								<div class="opacity-60" ng-show="inArray(Row._import_action,['Actualizar','Eliminar']) && Row._import_current[C[0]] != Row[C[0]]">
+									{{ Row._import_current[C[0]] }}
+								</div>
+								<div>{{ Row[C[0]] }}</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="h40"></div>
+			</md-table-container>
+
+			<div layout class="padding-5-10 border-top">
+				
+				<div ng-repeat="(kA,A) in Config.ImportAcciones" class="pill margin-right-5 padding-0-10" ng-class="A.clase"
+					layout ng-click="viewAcciones(kA)" ng-show="A.cant > 0">
+					<md-icon md-font-icon="{{ A.icono }} fa-fw margin-right-5"></md-icon>
+					<div class="lh30">{{ kA }}</div>
+					<div class="text-bold margin-0-10 lh30">{{ A.cant }}</div>
+				</div>
+
+				<md-button class="md-icon-button no-margin no-padding s30" ng-show="filterAccion !== ''" ng-click="viewAcciones('')">
+					<md-icon md-svg-icon="md-close"></md-icon>
+					<md-tooltip md-direction=right>Remover Filtro</md-tooltip>
+				</md-button>
+
+				<span flex></span>
+
+				<md-button class="md-raised md-primary no-margin mh30 h30 lh30" ng-click="doSync()"
+					ng-show="Config.ImportAcciones.Errores.cant == 0">
+					{{ Config.Titulo }} ({{ ImportData.length - Config.ImportAcciones['Errores'].cant }})</md-button>
+
+			</div>
+
+		</div>
+
+		<!-- Paso 3 -->
+		<div flex layout layout-align="center center" ng-show="Config.Paso == 3">
+			<div layout="column" layout-align="center center">
+				<md-progress-circular md-mode="indeterminate" class="md-primary" md-diameter="100"></md-progress-circular>
+				<label>Importando</label>
+			</div>
+		</div>
+
+
+
+		<!-- Paso 4 -->
+		<div flex layout layout-align="center center" ng-show="Config.Paso == 4" class="">
+			<div layout="column" layout-align="center center">
+
+				<md-icon md-svg-icon="md-check" ng-show="FinishStatus == 'Ok'" class="FinishIconOk"></md-icon>
+				<md-icon md-svg-icon="md-info"  ng-show="FinishStatus == 'Alert'" class="FinishIconAlert"></md-icon>
+
+				<label class="margin-top-20 text-18px">{{ FinishMsg }}</label>
+
+				<md-button ng-click="finishDiag()" class="md-raised margin-top bg-lightgrey-5">Regresar</md-button>
+
+			</div>
+		</div>
+
+
+		<!-- Paso 5 -->
+		<div flex layout="column" ng-show="Config.Paso == 5">
+			<md-table-container flex>
+				<table md-table class="md-table-short">
+					<thead md-head>
+						<tr md-row>
+							<th md-column>Fila</th>
+							<th md-column>Error</th>
+						</tr>
+					</thead>
+					<tbody md-body>
+						<tr md-row ng-repeat="Row in Errores" class="md-row-hover">
+							<td md-cell class="md-cell-compress">{{ Row.No }}</td>
+							<td md-cell>{{ Row.Msg }}</td>
+						</tr>
+					</tbody>
+				</table>
+			</md-table-container>
+			<md-dialog-actions layout class="md-whiteframe-3dp">
+				<span class="md-body-2 text-red" flex>Se encontraron {{ Errores.length }} errores, por favor corríjalos e intente nuevamente.</span>
+				<md-button class="md-warn" ng-click="DownloadErrors()">Descargar Errores</md-button>
+			</md-dialog-actions>
+		</div>		
+
+	</md-dialog-content>
+
+	<style type="text/css">
+		
+		.PlantillaSec{
+			cursor: pointer;
+			outline: none;
+		}
+
+		.PlantillaSec .BigButton md-icon{
+			transition: all 0.3s;
+			font-size: 80px;
+			width: 180px;
+			height: 180px;
+			padding: 40px 45px;
+			border: 5px dashed #b5b5b5;
+			border-radius: 50%;
+			line-height: 80px;
+			color: #a6a6a6;
+		}
+
+		.PlantillaSec .BigButton label{
+			transition: all 0.3s;
+			margin-top: 10px;
+			font-size: 16px;
+			color: #777777;
+		}
+
+		.PlantillaSec:hover .BigButton md-icon{
+			border: 5px solid #585858;
+			font-size: 90px;
+			padding: 42px 40px;
+			color: #585858;
+		}
+
+		.PlantillaSec:hover .BigButton label{
+			color: #585858;
+			font-weight: bold;
+		}
+
+		.FinishIconOk{
+			background: #2ea253;
+			color: white;
+			width: 130px;
+			height: 130px;
+			border-radius: 50%;
+			padding: 15px;
+			box-shadow: 0 25px 20px -10px rgba(24, 142, 62, 0.34);
+		}
+
+		.FinishIconAlert{
+			background: #c7793f;
+			color: white;
+			width: 130px;
+			height: 130px;
+			border-radius: 50%;
+			padding: 15px;
+			box-shadow: 0 25px 20px -10px rgba(193, 116, 0, 0.34);
+		}
+
+	</style>
+
+</md-dialog>
+

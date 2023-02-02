@@ -1,0 +1,104 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Thin.woff") format("woff"), url("/fonts/roboto/Roboto-Thin.ttf") format("truetype");
+  font-weight: 200; 
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Light.woff") format("woff"), url("/fonts/roboto/Roboto-Light.ttf") format("truetype");
+  font-weight: 300; 
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Regular.woff") format("woff"), url("/fonts/roboto/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400; 
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Medium.woff") format("woff"), url("/fonts/roboto/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500; 
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Bold.woff") format("woff"), url("/fonts/roboto/Roboto-Bold.ttf") format("truetype");
+  font-weight: 700; 
+}
+
+/**
+ *  Text alignment
+ */
+.input-right *{ text-align: right !important; }
+.input-left *{ text-align: left !important; }
+
+.text-right{ text-align: right !important; }
+.text-left { text-align: left  !important; }
+.text-center{ text-align: center !important; }
+.text-justify{ text-align: justify !important; }
+.text-clear{ opacity: 0.5; }
+.text-upper{ text-transform: uppercase; }
+.text-capit{ text-transform: capitalize; }
+.text-bold{ font-weight: bold; }
+.text-thin{ font-weight: 300; }
+.text-underline{ text-decoration: underline; }
+.no-underline{ text-decoration: none !important; }
+
+.text-ellipsis{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 99%;
+}
+
+.text-inherit{ color: inherit !important; fill: inherit !important; }
+
+.text-xs{ font-size: 10px; }
+.text-7pt{ font-size: 7pt; }
+.text-10pt{ font-size: 10pt; }
+.text-10px{ font-size: 10px; }
+.text-12px{ font-size: 12px; }
+.text-13px{ font-size: 13px; }
+.text-14px{ font-size: 14px; }
+.text-15px{ font-size: 15px; }
+.text-16px{ font-size: 16px; }
+.text-18px{ font-size: 18px; }
+.text-20px{ font-size: 20px; line-height: 25px; }
+.text-25px{ font-size: 25px !important; }
+.text-30px{ font-size: 30px !important; }
+
+.text-300{ font-weight: 300; }
+.text-400{ font-weight: 400; }
+
+.lh15, .lh15 .md-button{ line-height: 15px !important; }
+.lh20, .lh20 .md-button{ line-height: 20px !important; }
+.lh24, .lh24 .md-button{ line-height: 24px !important; }
+.lh25, .lh25 .md-button{ line-height: 25px !important; }
+.lh30, .lh30 .md-button{ line-height: 30px !important; }
+.lh40, .lh40 .md-button{ line-height: 40px !important; }
+.lh50, .lh50 .md-button{ line-height: 50px !important; }
+.lh100p, .lh100p .md-button{ line-height: 100% !important; }
+
+.all-text-white{ 
+	color: white !important; fill: white !important;
+	input{
+		color: white !important;
+		&::placeholder{
+			color: rgba(255,255,255,0.5) !important;
+		}
+	}
+	md-icon{
+		fill: white !important;
+	}
+}
+
+
+.md-headline label{ font-size: 16px; }
+.md-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
+    opacity: 0.7;
+}
+
+.Pointer{
+  cursor: pointer;
+}

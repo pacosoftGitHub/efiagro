@@ -1,0 +1,52 @@
+<md-dialog md-theme="{{ config.theme }}" ng-class="config.class" aria-label="Basic Dialog" style="max-height: 95%">
+    <md-toolbar class="md-short md-Transparent">
+        <div class="md-toolbar-tools">
+            <h2>{{ config.title }}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-icon="md-close" aria-label="a" style="color: currentColor"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <form name="CRUDDialogForm" ng-submit="sendData()" flex layout="column">
+        <md-dialog-content layout class="overflow">
+            <div class="md-dialog-content padding" layout="row" layout-wrap>
+                <md-input-container layout ng-repeat="Field in columns | filter:{ show: true }">
+                    <label>{{ Field.Desc}}</label>
+
+                    <input ng-if="Field.Type == 'string'" ng-model="Obj[Field.Field]" md-autofocus="$first" ng-required="Field.Required" ng-class="Field.Class">
+
+                    <input ng-if="Field.Type == 'email'" ng-model="Obj[Field.Field]" md-autofocus="$first" ng-required="Field.Required" ng-class="Field.Class" type=email pattern="[aA-zZ0-9._%+-]+@[aA-zZ0-9.-]+\.[aA-zZ]{2,4}$">
+
+                    <input ng-if="Field.Type == 'integer'" ng-model="Obj[Field.Field]" md-autofocus="$first" ng-required="Field.Required" ng-class="Field.Class" type="integer" pattern="[0-9]+">
+
+                    <md-datepicker ng-if="Field.Type == 'date'" ng-model="Obj[Field.Field]" md-autofocus="$first" ng-required="Field.Required" ng-class="Field.Class"></md-datepicker>
+
+                    <md-select ng-if="Field.Type == 'select'" ng-model="Obj[Field.Field]" md-autofocus="$first" ng-required="Field.Required" ng-class="Field.Class" class="w100p" 
+                        ng-change="Field.Options.onChangeFn(Obj[Field.Field])">
+                        <md-option ng-repeat="(k, Op) in Field.Options.options" ng-value="k">{{ Op }}</md-option>
+                    </md-select>
+
+                    <md-switch ng-if="Field.Type == 'bool'" ng-model="Obj[Field.Field]" ng-required="Field.Required" ng-class="Field.Class" class="w100p">
+
+					</md-switch>
+                    <textarea class="w100p" ng-model="Field.Value" ng-if="Field.Type == 'textarea'"
+                    rows="{{Field.opts.rows}}" ng-required="Field.Required"></textarea>
+                
+                </md-input-container>
+        
+            </div>
+            <div class="h10"></div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout class="no-border-top">
+            <md-button ng-if="!new && config.with_delete" ng-click="delete($event)" class="md-icon-button md-dialog-button-left md-warn" aria-label="Borrar">
+                <md-tooltip md-direction="right">Eliminar</md-tooltip>
+                <md-icon md-font-icon="fa-trash" class="fa-lg"></md-icon>
+            </md-button>
+            <span flex></span>
+            <md-button type="submit" class="md-raised md-primary">{{ config.confirmText }}</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

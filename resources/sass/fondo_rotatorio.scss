@@ -1,0 +1,87 @@
+#Credito__Creditos .Cred,
+#Credito__Mis_Creditos .Cred {
+  position: relative;
+  cursor: pointer;
+  margin: 0px 8px 5px;
+  border-radius: 3px;
+  outline: none;
+}
+#Credito__Creditos .Cred md-card-title,
+#Credito__Mis_Creditos .Cred md-card-title {
+  padding: 10px !important;
+}
+#Credito__Creditos .Cred md-card-content,
+#Credito__Mis_Creditos .Cred md-card-content {
+  padding: 0 10px;
+}
+#Credito__Creditos .Cred md-input-container,
+#Credito__Mis_Creditos .Cred md-input-container {
+  margin: 15px 0 10px;
+}
+#Credito__Creditos .Cred md-input-container label,
+#Credito__Mis_Creditos .Cred md-input-container label {
+  transform: translate3d(0, 3px, 0) scale(0.75);
+  color: rgba(0, 0, 0, 0.5);
+}
+#Credito__Creditos #CredOptions,
+#Credito__Mis_Creditos #CredOptions {
+  background-color: transparent;
+}
+#Credito__Recibo_Print .Recibo {
+  page-break-inside: avoid;
+}
+#Credito__Recibo_Print .ReciboBody {
+  border: 1px solid #dcdcdc;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+#Credito__Recibo_Print .ReciboBody .Row {
+  height: 38px;
+  border-top: 1px solid #dcdcdc;
+}
+#Credito__Recibo_Print .ReciboBody .Row .Cell {
+  border-left: 1px solid #dcdcdc;
+  padding: 3px 5px 0;
+}
+#Credito__Recibo_Print .ReciboBody .Row .Cell > * {
+  float: left;
+  clear: both;
+  width: 100%;
+  white-space: nowrap;
+}
+#Credito__Recibo_Print .ReciboBody .Row .Cell label {
+  font-size: 11px;
+  color: #00796a;
+}
+#Credito__Recibo_Print .ReciboBody .Row .Cell span {
+  font-size: 14px;
+}
+#Credito__Recibo_Print .ReciboBody .Row .Cell:first-child {
+  border-left: none;
+}
+#Credito__Recibo_Print .ReciboBody .Row:first-child {
+  border-top: none;
+}
+#Credito__Recibo_Print .ReciboFoot {
+  margin-top: 40px;
+}
+#Credito__Recibo_Print .border-bottom {
+  border-bottom: 1px solid #dcdcdc;
+}
+#Credito__Recibo_Print md-divider {
+  margin: 20px 0;
+  border-top: 1px dashed black;
+}
+#Credito__Recibo_Print .border-top {
+  border-top: 1px solid #dcdcdc;
+}
+#Credito__Recibo_Print .Recibo_Copia,
+#Credito__Recibo_Print .receit_caption,
+#Credito__Recibo_Print md-divider {
+  display: none;
+}
+#Credito__Recibo_Print.conCopia .Recibo_Copia,
+#Credito__Recibo_Print.conCopia .receit_caption,
+#Credito__Recibo_Print.conCopia md-divider {
+  display: block;
+}
